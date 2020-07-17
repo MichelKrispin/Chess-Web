@@ -51,7 +51,7 @@ class GameHandler:
 
     def get_board(self, id):
         """ Return the board of the id-th game. """
-        return self.games[id]['games'].board
+        return self.games[id]['games'].render_to_state()
 
     def get_active_player(self, id):
         """ Returns the active player of the game as a string. """

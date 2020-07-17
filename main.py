@@ -2,9 +2,11 @@
 
 import json
 from flask import Flask, jsonify, request, abort
+from flask_cors import CORS
 from GameHandler import GameHandler
 
 app = Flask(__name__)
+CORS(app)
 games_handler = GameHandler()
 
 @app.route('/', methods=['GET', 'POST'])
@@ -87,13 +89,13 @@ POST /
 
 GET /2/ data={ "key": "schwabbelbabbel5" }
 -> {
-    'board': "R,N,B,K,Q,B,N,R.P,P,P,P,...",
+    'board': "RNBKQBNRPPPP...",
     'role': 'white'
 }
 
 PUT /2/ data={ "move": "a2a3", "key": "schwabbelbabbel5" }
 -> {
-    'board': "R, ...",
+    'board': "R...",
     'valid': true,
     'message': 'PASSED',
     'player': 'black'
@@ -102,4 +104,3 @@ PUT /2/ data={ "move": "a2a3", "key": "schwabbelbabbel5" }
 """
 if __name__ == '__main__':
     app.run(debug=True)
-    server = ChessServer(host, port, verbose)
