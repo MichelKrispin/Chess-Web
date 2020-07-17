@@ -23,7 +23,7 @@ def game():
         # Create a new chess game and return its id for the new url
         return jsonify({ 'id': games_handler.new_game() })
         
-@app.route('/<int:id>/', methods=['GET', 'PUT'])
+@app.route('/<int:id>/', methods=['POST', 'PUT'])
 def play_game(id):
     """
     Play the game. If the id is below 0 or above length of games -1 it doesn't exist.
@@ -31,15 +31,18 @@ def play_game(id):
     if id >= games_handler.number_of_games or id < 0:
         abort(404)
 
-    if request.method == 'GET':
+    if request.method == 'POST':
         # Return the board of the game on get
-        try:
-            data = json.loads(request.data)
-            key = data['key']
-        except (KeyError, TypeError) as e:
+        if request.data == b'':
             role = 'None (send a { "key": <random-value> } to see a role)'
         else:
-            role = games_handler.get_user_role(id, key)
+            try:
+                data = json.loads(request.data)
+                key = data['key']
+            except (KeyError, TypeError) as e:
+                role = 'None (send a { "key": <random-value> } to see a role)'
+            else:
+                role = games_handler.get_user_role(id, key)
         return jsonify({ 'board': games_handler.get_board(id), 'role': role })
 
     elif request.method == 'PUT':
@@ -48,17 +51,22 @@ def play_game(id):
         message = "The move should be a from position and a to position with a character and a number i.e. a1a2. The character can range from a to h and the number from 1 to 8"
 
         # If the request data doesn't include 'move' as a key its invalid
-        try:
-            data = json.loads(request.data)
-            new_move = data['move']
-            key = data['key']
-        except (KeyError, TypeError) as e:
-            message = 'PUT data should look like { "move": "a1a2", "key": <random-value> }'
+        if request.data == b'':
+            message = 'Data is empty. PUT data should look like { "move": "a1a2", "key": <random-value> }'
         else:
-            # The request data is valid
-            # Check first whether the key matches the current player
-            if games_handler.is_active_player(id, key):
-                valid, message = games_handler.make_move(id, new_move)
+            try:
+                data = json.loads(request.data)
+                new_move = data['move']
+                key = data['key']
+            except (KeyError, TypeError) as e:
+                message = 'PUT data should look like { "move": "a1a2", "key": <random-value> }'
+            else:
+                # The request data is valid
+                # Check first whether the key matches the current player
+                if games_handler.is_active_player(id, key):
+                    valid, message = games_handler.make_move(id, new_move)
+                else:
+                    message = 'It is your opponents turn'
         return jsonify({
             'board': games_handler.get_board(id),
             'valid': valid,

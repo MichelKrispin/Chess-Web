@@ -51,7 +51,7 @@ class GameHandler:
 
     def get_board(self, id):
         """ Return the board of the id-th game. """
-        return self.games[id]['games'].render_to_state()
+        return self.games[id]['games'].state
 
     def get_active_player(self, id):
         """ Returns the active player of the game as a string. """
@@ -69,15 +69,17 @@ class GameHandler:
         The return options are
         'white', 'black', 'guest'
         """
-        if self.games[id]['white_key'] == None:
+        if not self.games[id]['white_key']:
             self.games[id]['white_key'] = key
             return 'white'
-        if self.games[id]['black_key'] == None:
-            self.games[id]['black_key'] = key
-            return 'black'
 
         if self.games[id]['white_key'] == key:
             return 'white'
+
+        if not self.games[id]['black_key']:
+            self.games[id]['black_key'] = key
+            return 'black'
+
         if self.games[id]['black_key'] == key:
             return 'black'
         else:
