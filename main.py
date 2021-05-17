@@ -1,15 +1,27 @@
 #!/usr/bin/env python3
 
 import json
-from flask import Flask, jsonify, request, abort
+import os
+from flask import abort, Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 from GameHandler import GameHandler
 
-app = Flask(__name__)
+app = Flask('chess', static_folder='react-front-end/build')
 CORS(app)
 games_handler = GameHandler()
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>') 
+def index(path):
+    """
+    The route to the react frontend.
+    """
+    if path != "" and os.path.exists(app.static_folder + '/' + path):
+        return send_from_directory(app.static_folder, path)
+    else:
+        return send_from_directory(app.static_folder, 'index.html')
+    
+@app.route('/api/', methods=['GET', 'POST'])
 def game():
     """
     The 'index' page which returns all games or lets the user create a new game.
@@ -23,7 +35,7 @@ def game():
         # Create a new chess game and return its id for the new url
         return jsonify({ 'id': games_handler.new_game() })
         
-@app.route('/<int:id>/', methods=['POST', 'PUT'])
+@app.route('/api/<int:id>/', methods=['POST', 'PUT'])
 def play_game(id):
     """
     Play the game. If the id is below 0 or above length of games -1 it doesn't exist.
