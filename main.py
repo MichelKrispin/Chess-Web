@@ -2,9 +2,14 @@
 
 import json
 import os
+import sys
 from flask import abort, Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 from GameHandler import GameHandler
+
+if not os.path.exists('react-front-end/build'):
+    print('The react frontend is not built yet. Please go into the "react-front-end" folder and run "npm install", "npm run build"')
+    sys.exit(1)
 
 app = Flask('chess', static_folder='react-front-end/build')
 CORS(app)
