@@ -9,7 +9,7 @@ and also of a React frontend.
 
 Short version (Linux):
 ```bash
-python -m venv ven
+python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 cd react-front-end
