@@ -1,6 +1,6 @@
 # Chess Online
 
-A small chess project based on the chess backend developed (here)[https://github.com/MichelKrispin/ChessOnline].
+A small chess project based on the chess backend developed [here](https://github.com/MichelKrispin/ChessOnline).
 
 It conists of a flask backend which provides a REST-like API and passes this on to the mentioned Chess Online chess implementation
 and also of a React frontend.
