@@ -1,0 +1,8 @@
+{
+  "name": "chess-react",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+      "heroku-postbuild": "cd react-front-end && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+  }
+}

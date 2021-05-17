@@ -82,3 +82,7 @@ So a few examples:
 ## React Frontend
 
 The react front end automatically creates a unique key as a cookie and saves it which is why you are recognized as one player even if you save the browser.
+
+## Run Online
+
+If you want to push it to e.g. Heroku remember to add python and nodejs as buildpacks. So `heroku buildpacks:add --index 1 heroku/nodejs` should do the trick.
