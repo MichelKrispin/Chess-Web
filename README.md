@@ -63,7 +63,7 @@ So a few examples:
 ```json
 {
     "board": "RNBKQBNRPPPP...",
-    "role": 'white'
+    "role": "white"
 }
 ```
 <hr>
@@ -74,8 +74,8 @@ So a few examples:
 {
     "board": "R...",
     "valid": true,
-    "message": 'PASSED',
-    "player": 'black'
+    "message": "PASSED",
+    "player": "black"
 }
 ```
 
