@@ -48,22 +48,22 @@ So a few examples:
 `GET /api/`
 
 ```json
-[{'id': 0}, {'id': 1}]
+[{"id": 0}, {"id": 1}]
 ```
 <hr>
 
 `POST /api/`
   
 ```json
-{'id': 2}
+{"id": 2}
 ```
 <hr>
 
 `GET /api/2/ data={ "key": "unique_player_key" }`
 ```json
 {
-    'board': "RNBKQBNRPPPP...",
-    'role': 'white'
+    "board": "RNBKQBNRPPPP...",
+    "role": 'white'
 }
 ```
 <hr>
@@ -72,10 +72,10 @@ So a few examples:
 
 ```json
 {
-    'board': "R...",
-    'valid': true,
-    'message': 'PASSED',
-    'player': 'black'
+    "board": "R...",
+    "valid": true,
+    "message": 'PASSED',
+    "player": 'black'
 }
 ```
 
