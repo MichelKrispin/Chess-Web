@@ -1,4 +1,4 @@
-# Chess Online
+# Chess Web
 
 A small chess project based on the chess backend developed [here](https://github.com/MichelKrispin/ChessOnline).
 
